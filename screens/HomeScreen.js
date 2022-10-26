@@ -4,11 +4,12 @@ import { useNavigation } from '@react-navigation/native'
 import {
   UserIcon,
   ChevronDownIcon,
-  SearchIcon,
-  AdjustmentsIcon
+  AdjustmentsHorizontalIcon,
+  MagnifyingGlassIcon
 } from "react-native-heroicons/outline"
 
 import Categories from '../components/Categories'
+import FeaturedRow from '../components/FeaturedRow'
 
 const HomeScreen = () => {
   const navigation = useNavigation()
@@ -47,22 +48,42 @@ const HomeScreen = () => {
 
         {/* Search */}
         <View className='flex-row items-center space-x-2 px-2'>
-          <View className='flex-row flex-1 space-x-2 bg-gray-200 p-3'>
+          <View className='flex-row flex-1 space-x-2 bg-gray-200 p-3 mb-3 rounded-sm'>
+            <MagnifyingGlassIcon color='gray' />
             <TextInput
               placeholder='Search Restuarants and cuisines'
               keyboardType='default'
             />
           </View>
-          <Text className='text-blue-300'>
-            Adjustment
-          </Text>
+          <View>
+            <AdjustmentsHorizontalIcon color='green' />
+          </View>
         </View>
 
         {/* Body */}
-        <ScrollView className='bg-red-400'>
+        <ScrollView
+        contentcontainerstyle={{
+          paddingBottom: 100,
+        }}
+        >
           {/* Categories */}
             <Categories/>
           {/* Featured Rows */}
+          <FeaturedRow
+            id='123'
+            title="Featured"
+            description="paid placements from our partners"
+          />
+          <FeaturedRow
+            id='123'
+            title="Tasty Discounts"
+            description="paid placements from our partners"
+          />
+          <FeaturedRow
+            id='123'
+            title="Offers near you"
+            description="paid placements from our partners"
+          />
         </ScrollView>
     </SafeAreaView>
   )

@@ -9,7 +9,7 @@ const FeaturedRow = ({id, title, description}) => {
 
   useEffect(() => {
     sanityClient.fetch(`
-      *[_type == "featured" && _id == ${id}] {
+      *[_type == "featured" && _id == $id] {
         ...,
         resturants[]->{
           ..., 
@@ -25,6 +25,8 @@ const FeaturedRow = ({id, title, description}) => {
       setReaturants(data?.resturants)
     })
   }, [])
+
+  console.log('resturants', resturants)
 
   return (
     <View>

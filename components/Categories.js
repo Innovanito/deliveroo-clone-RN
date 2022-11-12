@@ -15,7 +15,6 @@ const [categories, setCategories] = useState([])
     })
   }, [])
 
-  console.log('categories', categories)
 
 
   return (

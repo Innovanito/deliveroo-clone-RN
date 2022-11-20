@@ -16,9 +16,9 @@ export default {
       validation: Rule => Rule.max(200),
     },
     {
-      name: 'resturants',
+      name: 'restaurants',
       type: 'array',
-      of: [{type: 'reference', to: {type: 'resturant'}}],
+      of: [{type: 'reference', to: {type: 'restaurant'}}],
     },
   ],
 }

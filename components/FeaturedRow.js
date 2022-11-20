@@ -1,17 +1,17 @@
 import { View, Text ,ScrollView} from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { ArrowRightIcon } from 'react-native-heroicons/outline'
-import ResturantCard from './ResturantCard'
+import RestaurantCard from './RestaurantCard'
 import sanityClient from "../sanity"
 
 const FeaturedRow = ({id, title, description}) => {
-  const [resturants, setReaturants] = useState([])
+  const [restaurants, setRestaurants] = useState([])
 
   useEffect(() => {
     sanityClient.fetch(`
       *[_type == "featured" && _id == $id] {
         ...,
-        resturants[]->{
+        restaurants[]->{
           ..., 
           dishes[]->,
           type -> {
@@ -22,7 +22,7 @@ const FeaturedRow = ({id, title, description}) => {
       `,
       { id }
     ).then(data => {
-      setReaturants(data?.resturants)
+      setRestaurants(data?.restaurants)
     })
   }, [id])
 
@@ -44,19 +44,19 @@ const FeaturedRow = ({id, title, description}) => {
         showHorizontalScrollIndicator={false}
         className='pt-4'
       >
-        {resturants?.map(resturant => (
-          <ResturantCard
-            key={resturant._id}
-            id={resturant._id}
-            imgUrl={resturant.image}
-            address={resturant.address}
-            title={resturant.name}
-            dishes={resturant.dishes}
-            rating={resturant.rating}
-            short_description={resturant.short_description}
-            genre={resturant.type?.name}
-            long={resturant.long}
-            lat={resturant.lat}
+        {restaurants?.map(restaurant => (
+          <RestaurantCard
+            key={restaurant._id}
+            id={restaurant._id}
+            imgUrl={restaurant.image}
+            address={restaurant.address}
+            title={restaurant.name}
+            dishes={restaurant.dishes}
+            rating={restaurant.rating}
+            short_description={restaurant.short_description}
+            genre={restaurant.type?.name}
+            long={restaurant.long}
+            lat={restaurant.lat}
           />
         ))}
         

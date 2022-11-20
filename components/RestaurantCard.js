@@ -5,7 +5,7 @@ import { MapPinIcon} from 'react-native-heroicons/outline'
 import { urlFor } from '../sanity'
 import { useNavigation } from '@react-navigation/native'
 
-const ResturantCard = ({
+const RestaurantCard = ({
   id,
   imgUrl,
   title,
@@ -21,7 +21,7 @@ const ResturantCard = ({
   return (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate('Resturant', {
+        navigation.navigate('Restaurant', {
           id,
           imgUrl,
           title,
@@ -61,4 +61,4 @@ const ResturantCard = ({
   )
 }
 
-export default ResturantCard
+export default RestaurantCard

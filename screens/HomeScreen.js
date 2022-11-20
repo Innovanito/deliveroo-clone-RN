@@ -26,7 +26,7 @@ const HomeScreen = () => {
     sanityClient.fetch(`
       *[_type == "featured"] {
         ...,
-        resturants[]->{
+        restaurants[]->{
           ...,
           dishes[]->
         }

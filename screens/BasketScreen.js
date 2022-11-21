@@ -5,11 +5,16 @@ import {selectRestaurant} from "../features/restaurantSlice"
 import { selectBasketItems } from '../features/basketSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { XCircleIcon } from 'react-native-heroicons/solid'
+import { urlFor } from '../sanity'
+import Currency from "react-currency-formatter"
+import { removeFromBasket, selectBasketTotal } from '../features/basketSlice'
+
 
 const BasketScreen = () => {
   const navigation = useNavigation()
   const restaurant = useSelector(selectRestaurant)
   const items = useSelector(selectBasketItems)
+  const basketTotal = useSelector(selectBasketTotal)
   const dispatch = useDispatch()
 
   const [groupedItemsInBasket, setGroupedItemsInBasket] = useState([])
@@ -56,13 +61,65 @@ const BasketScreen = () => {
           </TouchableOpacity>
         </View>
 
-        <ScrollView>
+        <ScrollView className='divide-y divide-gray-200'>
           {Object.entries(groupedItemsInBasket).map(([key, items]) => (
-            <View key={key}>
-              <Text>{items.length} x</Text>
+            <View key={key} className="flex-row items-center space-x-3 bg-white py-2 px-5">
+              <Text className='text-[#00CCBB]'>{items.length} x</Text>
+              <Image
+                source={{ url: urlFor(items[0]?.image).url()}}
+                className="h-12 w-12 rounded-full"
+              />
+              <Text className='flex-1'>{items[0]?.name}</Text>
+
+              <Text>
+                <Currency quantity={items[0]?.price} currency="GBP" />
+              </Text>
+
+              <TouchableOpacity>
+                <Text
+                  className='text-[#00CCBB] text-xs'
+                  onPress={() => dispatch(removeFromBasket({ id: key}))}
+                >
+                  Remove
+                </Text>
+              </TouchableOpacity>
             </View>
           ))}
         </ScrollView>
+
+        <View className='p-5 bg-white mt-5 space-y-4'>
+          <View className='flex-row justify-between'>
+            <Text className='text-gray-400'>SubTotal</Text>
+            <Text className='text-gray-400'>
+              <Currency quantity={basketTotal} currency="GBP" />
+            </Text>
+          </View>
+
+          <View className='flex-row justify-between'>
+            <Text className='text-gray-400'>Delivery Fee</Text>
+            <Text className='text-gray-400'>
+              <Currency quantity={5.99} currency="GBP" />
+            </Text>
+          </View>
+
+          <View className='flex-row justify-between'>
+            <Text >Order Total</Text>
+            <Text className='font-extrabold'>
+              <Currency quantity={basketTotal + 5.99} currency="GBP" />
+            </Text>
+          </View>
+
+          <TouchableOpacity
+            onPress={() => navigation.navigate("PreparingOrderScreen")}
+            className='rounded-lg bg-[#00CCBB] p-4'
+          >
+            <Text className='text-center text-white text-lg font-bold'>Place Order</Text>
+          </TouchableOpacity>
+        </View>
+
+       
+
+
       </View>
     </SafeAreaView>
   )

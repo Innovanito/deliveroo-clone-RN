@@ -47,7 +47,7 @@ const RestaurantScreen = () => {
         lat
       })
     )
-  },[dispatch])
+  },[])
 
   useLayoutEffect(() => {
     navigation.setOptions({
